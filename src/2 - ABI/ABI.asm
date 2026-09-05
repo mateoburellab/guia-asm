@@ -97,13 +97,67 @@ alternate_sum_4_using_c_alternative:
 
 
 ; uint32_t alternate_sum_8(uint32_t x1, uint32_t x2, uint32_t x3, uint32_t x4, uint32_t x5, uint32_t x6, uint32_t x7, uint32_t x8);
-; registros y pila: x1[?], x2[?], x3[?], x4[?], x5[?], x6[?], x7[?], x8[?]
+; registros y pila: x1[RDI], x2[RSI], x3[RDX], x4[RCX], x5[R8], x6[R9], x7[[RBP+16]], x8[RBP+24]
 alternate_sum_8:
 	;prologo
+  push RBP
+  mov RBP, RSP
 
 	; COMPLETAR
+  push RBX
+  push R12
+  push R13
+  push R14
+  push R15
+
+  mov RBX, RDX
+  mov R12, RCX
+  mov R13, R8
+  mov R14, R9
+  mov R15, [RBP+16]
+  push qword [RBP+24] ; alineada
+
+  call restar_c
+
+  mov RDI, RAX
+  mov RSI, RBX
+
+  call sumar_c
+
+  mov RDI, RAX
+  mov RSI, R12
+
+  call restar_c
+
+  mov RDI, RAX
+  mov RSI, R13
+
+  call sumar_c
+
+  mov RDI, RAX
+  mov RSI, R14
+
+  call restar_c
+
+  mov RDI, RAX
+  mov RSI, R15
+
+  call sumar_c
+  
+  mov RDI, RAX
+  mov RSI, [RSP]
+
+  call restar_c
+
+  add RSP, 8
+  pop R15
+  pop R14
+  pop R13
+  pop R12
+  pop RBX
 
 	;epilogo
+  pop RBP
 	ret
 
 

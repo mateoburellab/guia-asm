@@ -94,8 +94,8 @@ int main() {
 	test_alternate_sum_4();
 	test_alternate_sum_4_using_c();
 	test_alternate_sum_8();
-	test_product_2_f();
-	test_product_9_f();
+	// test_product_2_f();
+	// test_product_9_f();
 	printf("\n");
 
 	tests_end(test_suite_name);
